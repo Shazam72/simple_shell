@@ -30,7 +30,7 @@ int _alias_display(data_t *data);
 /**
  * print_env - printf the current env state
  * @args: array of arguments
- * Return: number of printed variables
+ * Return: 0
  */
 int print_env(char __attribute__((__unused__)) **args)
 {
@@ -45,7 +45,7 @@ int print_env(char __attribute__((__unused__)) **args)
 		write(STDOUT_FILENO, environ[i], var_len);
 		write(STDOUT_FILENO, "\n", 1);
 	}
-	return (i);
+	return (0);
 }
 
 /**
