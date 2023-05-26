@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 		while (readed == NULL)
 		{
 			read_line(&readed);
-			_strtok(readed, "\n");
 			res_exec = exec_from_line(readed, 1);
 			free(readed);
 			if (!isatty(STDIN_FILENO) || res_exec == EXIT_BUILTIN_STATUS)

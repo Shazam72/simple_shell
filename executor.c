@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define NOT_FOUND_MSG "not found\n"
 #define NOT_FOUND_SIZE 10
@@ -44,20 +46,27 @@ char **dup_args(char **args)
  */
 int exec_from_line(char *readed, int show_errors)
 {
-	StringNode *list = NULL;
+	StringNode *lines = NULL, *line = NULL, *tmp = NULL;
 	char **args = NULL;
 	int res_exec = 0;
 
 	if (readed == NULL)
 		return (-1);
-	list = _strsplit(readed, OPTION_DELIMITER);
-	if (list == NULL)
+	lines = _strsplit(readed, "\n");
+	if (lines == NULL)
 		return (-1);
+	for (line = lines; line->next; line = line->next)
+	{
+		tmp = _strsplit(line->str, OPTION_DELIMITER);
+		if (tmp == NULL)
+			return (-1);
 
-	args = array_from_string_list(list);
-	res_exec = exec_args(args, show_errors);
-	free_string_array(args);
-	free_list(list);
+		args = array_from_string_list(tmp);
+		res_exec = exec_args(args, show_errors);
+		free_string_array(args);
+		free_list(tmp);
+	}
+	free_list(lines);
 	return (res_exec);
 }
 
