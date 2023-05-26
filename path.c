@@ -53,8 +53,17 @@ char *is_file_in(char *dir, char *filename)
 {
 	struct stat _st;
 	char *fullpath = NULL;
+	int filename_len = 0;
 
-	fullpath = _concat_dir_to_file(dir, filename);
+	if (filename[0] == '/')
+	{
+		filename_len = _strlen(filename);
+		fullpath = (char *) malloc(sizeof(*filename) * (filename_len + 1));
+		_strcpy(fullpath, filename);
+	}
+	else
+		fullpath = _concat_dir_to_file(dir, filename);
+
 	if (fullpath == NULL)
 		return (NULL);
 	if (stat(fullpath, &_st) == 0)
