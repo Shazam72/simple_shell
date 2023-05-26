@@ -67,9 +67,10 @@ int exit_bultin(char **args)
 			else
 			{
 				_setenv("EXIT_CODE", "2", 1);
-				_print_error("exit: ", "");
+				_print_error("1: exit: ", NULL);
+				_print_error("Illegal number: ", "");
 				_print_error(args[1], "");
-				_print_error(" :please pass an integer\n", "");
+				_print_error("\n", "");
 			}
 		}
 		else
