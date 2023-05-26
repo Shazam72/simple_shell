@@ -65,17 +65,17 @@ ssize_t _getline(char **buff, size_t *n)
 	while (1)
 	{
 		res_rd = read(STDIN_FILENO, _buff, BUFFER_READ_SIZE - 1);
-		if (res_rd == -1)
+		if (res_rd <= 0)
 		{
-			free_input(&input, &_buff);
-			*n = 0;
-			return (-1);
-		}
-		if (res_rd == 0)
-		{
-			free_input(&input, &_buff);
-			*n = 0;
-			return (0);
+			if (res_rd == -1 || (res_rd == 0 && input_len == 0))
+			{
+				free_input(&input, &_buff);
+				*n = 0;
+				if (res_rd == -1)
+					return (-1);
+				return (0);
+			}
+			break;
 		}
 		input_len += res_rd;
 		if (_buff[0] == '\n')
@@ -86,7 +86,7 @@ ssize_t _getline(char **buff, size_t *n)
 		else
 			_buff[res_rd] = '\0';
 		save_buff(&input, &_buff, &input_len, &res_rd);
-		if (_buff[0] == '\n' || _buff[res_rd - 1] == '\n')
+		if (isatty(0) && (_buff[0] == '\n' || _buff[res_rd - 1] == '\n'))
 			break;
 	}
 	if (*buff != NULL)
