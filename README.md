@@ -5,7 +5,7 @@
 ## Main Requirements
 
 ### Output
-The output of the shell should be the same as sh   
+The output of the shell should be the same as sh 
 **sh**
 
     $ echo "qwerty" | /bin/sh
