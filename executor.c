@@ -76,7 +76,7 @@ int exec_from_line(char *readed, int show_errors)
  * @show_errors: show execution errors, any number other than zero to show
  * Return:
  *	0 if no problem appear
- *	1 if executed command failed
+ *	2 if executed command failed
  *	-1 if failed to clone process
  */
 int _callsys(char **args, int show_errors)
@@ -96,7 +96,7 @@ int _callsys(char **args, int show_errors)
 	{
 		if (execve(args[0], args, environ) == -1 && show_errors != 0)
 			perror(_getenv("EXECUTION_FILENAME") + 19);
-		return (1);
+		return (2);
 	}
 	else
 		waitpid(child, &status, 0);

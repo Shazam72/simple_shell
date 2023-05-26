@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
 			free(readed);
 			if (!isatty(STDIN_FILENO) || res_exec == EXIT_BUILTIN_STATUS)
 			{
+				exit(res_exec);
 				if (res_exec == EXIT_BUILTIN_STATUS)
 				{
 					res_exec = _strtoi(_getenv("EXIT_CODE") + 10);
